@@ -4,30 +4,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <link rel="stylesheet" href="webjars/bulma/0.7.2/css/bulma.min.css">
+    <script defer src="webjars/font-awesome/5.4.1/js/all.js"></script>
+    <script src="webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script src="js/handler.js"></script>
 </head>
 <body>
 <section class="section">
     <div class="container">
         <h1 class="title">
-            Home
+            <span class="icon">
+                <i class="fas fa-power-off"></i>
+            </span>
+            Front light
         </h1>
         <div class="buttons">
-            <a class="button is-danger is-large is-fullwidth">
-                <span class="icon">
-                    <i class="fas fa-power-off"></i>
-                </span>
-                <span>Na zewnątrz</span>
+            <a id="front-light-on-off" class="button is-danger is-large is-fullwidth">
+                <span id="on-off">Turn on</span>
             </a>
-            <a class="button is-danger is-large is-fullwidth">
-                <span class="icon">
-                    <i class="fas fa-power-off"></i>
-                </span>
-                <span>Na zewnątrz - 5 min</span>
+            <a id="front-light-5-min-on" class="button is-danger is-large is-fullwidth">
+                <span>Turn on for 5 mins</span>
             </a>
         </div>
-
     </div>
 </section>
 </body>
