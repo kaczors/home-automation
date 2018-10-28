@@ -1,5 +1,5 @@
 package com.github.kaczors.home.light;
 
-public enum Status {
+enum Status {
     ON, OFF
 }

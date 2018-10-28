@@ -1,14 +1,15 @@
 package com.github.kaczors.home.light;
 
-import org.springframework.stereotype.Component;
+import lombok.extern.java.Log;
 
-@Component
-public class InMemoryFrontLight implements RemoteFrontLightAdapter {
+@Log
+class InMemorySwitch implements Switch {
 
     private Status status = Status.OFF;
 
     @Override
     public void acceptAction(Action action) {
+        log.info("Switch action: " + action);
         status = action == Action.TURN_ON ? Status.ON : Status.OFF;
     }
 

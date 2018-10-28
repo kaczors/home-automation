@@ -23,7 +23,7 @@ class FrontLightController {
     @PostMapping("actions")
     public void addAction(@RequestBody ActionRequest actionRequest) {
         log.info("Action requested " + actionRequest);
-        frontLight.acceptAction(actionRequest.getAction());
+        frontLight.acceptActionRequest(actionRequest);
     }
 
     @GetMapping("status")

@@ -1,22 +1,31 @@
 package com.github.kaczors.home.light;
 
-import org.springframework.stereotype.Component;
+import com.github.kaczors.home.timer.SingleSlotTimer;
 
-@Component
 class FrontLight {
 
-    private final RemoteFrontLightAdapter remoteFrontLight;
+    private final Switch remoteFrontLight;
 
-    FrontLight(RemoteFrontLightAdapter remoteFrontLight) {
+    private final SingleSlotTimer timer = new SingleSlotTimer();
+
+    FrontLight(Switch remoteFrontLight) {
         this.remoteFrontLight = remoteFrontLight;
     }
 
-    public void acceptAction(Action action) {
+    void acceptActionRequest(ActionRequest actionRequest) {
+        Action action = actionRequest.getAction();
+        long actionTimeout = actionRequest.getActionTimeout();
+
         remoteFrontLight.acceptAction(action);
+        if (Action.TURN_OFF == action) {
+            timer.cancel();
+        } else if (actionTimeout > 0) {
+            timer.schedule(() -> remoteFrontLight.acceptAction(Action.TURN_OFF), actionTimeout);
+        }
     }
 
 
-    public Status getStatus() {
+    Status getStatus() {
         return remoteFrontLight.getStatus();
     }
 }

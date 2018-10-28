@@ -1,6 +1,6 @@
 package com.github.kaczors.home.light;
 
-interface RemoteFrontLightAdapter {
+interface Switch {
 
     void acceptAction(Action action);
 
