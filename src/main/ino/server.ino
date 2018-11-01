@@ -18,7 +18,7 @@ String state = STATE_OFF;
 const int output0 = 0;
 
 void setup() {
-    Serial.begin(115200);
+    Serial.begin(9600);
     pinMode(output0, OUTPUT);
     offRelay();
     connectToWifi();
