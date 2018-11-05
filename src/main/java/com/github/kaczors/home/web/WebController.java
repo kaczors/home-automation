@@ -10,4 +10,9 @@ public class WebController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping("/login.html")
+    public String login() {
+        return "login";
+    }
 }
