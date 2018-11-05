@@ -1,17 +1,13 @@
 package com.github.kaczors.home.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -19,41 +15,33 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/js/**", "/webjars/**", "/favicon.ico").permitAll()
-                .anyRequest().authenticated()
-                .and()
+            .antMatchers("/js/**", "/webjars/**", "/favicon.ico").permitAll()
+            .anyRequest().authenticated()
+            .and()
             .formLogin()
-                .loginPage("/login.html")
-                .failureUrl("/login.html?error=true")
-                .defaultSuccessUrl("/")
-                .permitAll();
-        // @formatter:on
+            .loginPage("/login")
+            .defaultSuccessUrl("/")
+            .permitAll();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-            .withUser("user").password("password").roles("USER");
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails paulinka = User
+            .withUsername("paulinka")
+            .password("{bcrypt}$2a$10$j.nfCrxuh9dLAtjd29W3i.bh2OkEbZvLA/X5oyteavpVuCTG8UbJq")
+            .roles("USER")
+            .build();
 
+        UserDetails pawel = User
+            .withUsername("pawel")
+            .password("{bcrypt}$2a$10$F/sB2NMp9F9lLhbjlg3NIe/JNNXCfBt05YjF3F8qY/OWCsvirlHo.")
+            .roles("USER")
+            .build();
+
+        return new InMemoryUserDetailsManager(paulinka, pawel);
     }
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-////        	 * PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-////	 * // outputs {bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG
-////	 * // remember the password that is printed out and use in the next step
-////	 * System.out.println(encoder.encode("password"));
-//        UserDetails user = User
-//            .withUsername("user")
-//            .password("{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG")
-//            .roles("USER")
-//            .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 }
