@@ -5,7 +5,7 @@
 
     <groupId>com.github.kaczors</groupId>
     <artifactId>home</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>home</name>
@@ -65,6 +65,7 @@
     </dependencies>
 
     <build>
+        <finalName>home-backend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
